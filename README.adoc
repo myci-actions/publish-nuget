@@ -1,2 +1,29 @@
-# publish-nuget
-Publish nuget package
+= publish-nuget
+
+Publish nuget package to a nuget repository.
+
+Step syntax:
+
+....
+- name: <name>
+  uses: myci-actions/publish-nuget@<version>
+  with:
+    filename: <filename>
+    api-key: <api-key>
+    repo-url: <repo-url>
+....
+
+Arguments:
+
+- `<filename>` - filename of the .nupkg package to publish. Can be specified as wildcard, e.g. `*.nupkg`.
+- `<api-key>` - API key to access the nuget repository.
+- `<repo-url>` - URL of the nuget repository to publish the package to. Default value is `https://api.nuget.org/v3/index.json`.
+
+Step example:
+....
+- name: publish nuget package
+  uses: myci-actions/publish-nuget@1
+  with:
+    filename: '*.nupkg'
+    api-key: ${{ secrets.NUGET_DOT_ORG_API_KEY }}
+....
