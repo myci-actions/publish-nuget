@@ -1,0 +1,25 @@
+name: 'Publish Nuget package'
+description: 'Publish Nuget package to repository.'
+branding:
+  icon: 'archive'
+  color: 'purple'
+inputs:
+  filename:
+    description: 'nuget package filename, wildcards allowed'
+    required: true
+  api-key:
+    description: 'API key to access the repository'
+    required: true
+  repo-url:
+    description: 'Nuget repository URL'
+    required: false
+    default: 'https://api.nuget.org/v3/index.json'
+runs:
+  using: "composite"
+  steps:
+    - name: set API key
+      run: nuget setApiKey ${{ inputs.api-key }}
+      shell: powershell
+    - name: push nuget package
+      run: nuget push ${{ inputs.filename }} -Source ${{ inputs.repo-url }}
+      shell: powershell
