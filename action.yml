@@ -20,6 +20,10 @@ runs:
     - name: set API key
       run: nuget setApiKey ${{ inputs.api-key }}
       shell: powershell
-    - name: push nuget package
-      run: nuget push ${{ inputs.filename }} -Source ${{ inputs.repo-url }}
+    - name: push each nuget package matching the given wildcard to nuget repository
+      run: |
+        Get-ChildItem "." -Filter "${{ inputs.filename }}" | 
+        Foreach-Object {
+            nuget push $_.FullName -Source ${{ inputs.repo-url }}
+        }
       shell: powershell
