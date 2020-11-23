@@ -22,7 +22,8 @@ runs:
       shell: powershell
     - name: push each nuget package matching the given wildcard to nuget repository
       run: |
-        Get-ChildItem "." -Filter "${{ inputs.filename }}" | 
+        Get-ChildItem . | Write-Host
+        Get-ChildItem . -Filter "${{ inputs.filename }}" | 
         Foreach-Object {
             Write-Host "Publishing $_.FullName"
             nuget push $_.FullName -Source ${{ inputs.repo-url }}
