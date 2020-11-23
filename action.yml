@@ -1,7 +1,7 @@
 name: 'Publish Nuget package'
 description: 'Publish Nuget package to repository.'
 branding:
-  icon: 'archive'
+  # icon: 'archive'
   color: 'purple'
 inputs:
   filename:
