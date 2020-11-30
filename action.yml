@@ -25,7 +25,7 @@ runs:
         Get-ChildItem . -Filter "${{ inputs.filename }}" | 
         Foreach-Object {
             Write-Host "Publishing $_.FullName"
-            nuget push $_.FullName -Source ${{ inputs.repo-url }}
+            nuget push $_.FullName -Source ${{ inputs.repo-url }} -SkipDuplicate
         }
         Write-Host "done publishing packages"
       shell: powershell
