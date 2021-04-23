@@ -17,15 +17,12 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: set API key
-      run: nuget setApiKey ${{ inputs.api-key }}
-      shell: powershell
     - name: push each nuget package matching the given wildcard to nuget repository
       run: |
         Get-ChildItem . -Filter "${{ inputs.filename }}" | 
         Foreach-Object {
             Write-Host "Publishing $_.FullName"
-            nuget push $_.FullName -Source ${{ inputs.repo-url }} -SkipDuplicate
+            nuget push $_.FullName -Source ${{ inputs.repo-url }} -ApiKey ${{ input.api-key }} -SkipDuplicate
         }
         Write-Host "done publishing packages"
       shell: powershell
