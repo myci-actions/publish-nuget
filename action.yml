@@ -19,10 +19,6 @@ runs:
   steps:
     - name: push each nuget package matching the given wildcard to nuget repository
       run: |
-        Get-ChildItem . -Filter "${{ inputs.filename }}" | 
-        Foreach-Object {
-            Write-Host "Publishing $_.FullName"
-            nuget push $_.FullName -Source ${{ inputs.repo-url }} -ApiKey ${{ input.api-key }} -SkipDuplicate
-        }
+        nuget push ${{ inputs.filename }} -Source ${{ inputs.repo-url }} -ApiKey ${{ input.api-key }} -SkipDuplicate
         Write-Host "done publishing packages"
       shell: powershell
